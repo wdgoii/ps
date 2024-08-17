@@ -1,14 +1,11 @@
 # Invoke-WebRequest -uri "https://encurtador.com.br/ci4Pr" -OutFile c:\users\inicio.ps1
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 # criar drive local 
-New-Item -Path 'C:\windows\temp\www-yyy-xxx-aaa-apagar' -ItemType Directory
-$parameters = @{
-    Name = "Docs"
-    PSProvider = "FileSystem"
-    Root = "C:\windows\temp\www-yyy-xxx-aaa-apagar"
-    Description = "Local"
-}
-New-PSDrive @parameters
+remove-item -Path C:\Windows\Temp\240817 -Recurse   
+new-item -Path C:\Windows\Temp\240817 -Type Directory
+Remove-PSDrive -Name T1
+New-PSDrive -Name "T1" -PSProvider FileSystem -Root "C:\Windows\Temp\240817\"
+
 
 # copiar pasta drive mpf => drive local
 # descompactar
