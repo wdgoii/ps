@@ -11,7 +11,7 @@ $Gateway =  (Get-NetRoute               -InterfaceIndex $interface.InterfaceInde
 $DNS =      (Get-DnsClientServerAddress -InterfaceIndex $interface.InterfaceIndex -AddressFamily $IPType).ServerAddresses
 $info = get-computerinfo|select csmodel, csname, osversion, csmanufacturer, CsProcessors, WindowsBuildLabEx, WindowsProductName, BiosReleaseDate , OsTotalVisibleMemorySize
 
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force 1> $null
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 if ((get-module -name PSWindowsUpdate).Name -ne "PSWindowsUpdate") {
     Install-Module -Name PSWindowsUpdate -Force
 }
