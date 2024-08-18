@@ -1,0 +1,18 @@
+﻿TheDocumentFoundation.LibreOffice
+PDFsam.PDFsam
+Microsoft.PowerShell
+VideoLAN.VLC
+Adobe.Acrobat.Reader.64-bit
+Google.Chrome
+Mozilla.Firefox
+XMediaRecode64bit.XMediaRecode64bit
+TrackerSoftware.PDF-XChangeEditor
+Oracle.JavaRuntimeEnvironment
+7zip.7zip
+IObit.DriverBooster
+Winget-AutoUpdate-aaS
+Intel.IntelDriverAndSupportAssistant
+Adobe Acrobat Reader
+Microsoft.UI.Xaml.2.8
+
+
