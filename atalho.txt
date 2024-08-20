@@ -1,0 +1,117 @@
+obter usuarios	Get-WmiObject -ComputerName workstation1 -Class Win32_UserAccount -Filter "LocalAccount=True" | Select PSComputername, Name, Status, Disabled, AccountType, Lockout, PasswordRequired, PasswordChangeable | Out-GridView																								
+																									
+																									
+appwiz.cpl	programas, recursos																								
+ctrl+alt+shift+f (vnc)	sair da tela cheia																								
+oobe\bypassnro	pular na instalacao do windows 																								
+Certmgr.exe	certificados																								
+cleanmgr	limpeza																								
+compmgmt.msc	computador, gerenciamento																								
+control admintools	ferramentas																								
+control netconnections	rede																								
+control printers	impressora																								
+control userpasswords2	usuario																								
+dfrg.msc	disco desfragmentador																								
+firewall.cpl																									
+fsmgmt.msc	pastas compartilhamento																								
+hdwwiz.cpl	dispositivos																								
+intl.cpl	formato hora dia																								
+ipconfig /displaydns	??? , importante, dns																								
+ipconfig /registerdns	dns																								
+ipconfig /release	rede , ip																								
+ipconfig /renew	rede, ip																								
+net stop wuauserv	update																								
+powercfg.cpl	energia																								
+secpol.msc	seguranca, importante , ???																								
+start chrome	chrome																								
+sysdm.cpl	remoto sistema																								
+systeminfo	versao windows																								
+taskmgr. exe	tarefas gerenciador																								
+%userprofile%	usuario atual																								
+whoami 	usuario atual																								
+wuauclt.exe /updatenow	atualizar																								
+printmanagement.msc	impressora gerenciamento																								
+taskschd.msc	agendador tarefas																								
+schtasks /create /sc daily /tn "desligar as 0200" /tr "shutdown /s /t 10" /st 02:00	desligar agendar tarefas																								
+C:\Windows\explorer.exe /NOUACCHECK	iniciar explorer administrador																								
+certlm.msc	certificados locais																								
+wf.msc	firewall																								
+																									
+powercfg -h off	energia, suspensao																								
+powercfg /hibernate off	energia, hibernar																								
+net user suser senha /add /EXPIRES:NEVER  	usuario, expirar																								
+runas /user:prm powershell																							
+start-process powershell -verb runas
+																									
+																									
+powercfg -h off																									
+powercfg /hibernate off																									
+powercfg /change monitor-timeout-ac 20																									
+powercfg /change disk-timeout-ac 0																									
+powercfg /change standby-timeout-ac 0																									
+
+add-localGroupMember -Group "Administradores" -Member "user"																									
+wuauclt.exe /updatenow																									
+Add-Computer -WorkGroupName "RIOPRETO"																									
+																									
+Enable-PSRemoting -Force																									
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value <IP>																								
+get-netadapter																									
+Set-NetConnectionProfile -InterfaceIndex 17 -NetworkCategory Private																									
+																									
+																							
+Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private																									
+																									
+cleanmgr /d /verylowdisk C:																									
+Remove-Item $env:temp\* -Recurse -force																									
+remove-item C:\Windows\Temp\*																									
+remove-item $env:userprofile\AppData\Local\Temp\*																									
+get-computerinfo|select csmodel, csname, osversion, csmanufacturer, CsProcessors																									
+																									
+shutdown /s /t 8000																									
+rename-computer <name>																							
+																																													
+start chrome https://drive.google.com/drive/folders/1TKABhyLUMfKB667nEjHSWej0ZladSU-o?usp=sharing	prm down																								
+start chrome https://drive.google.com/drive/folders/1OSzN9syZcdWCg2Uag3zqEyxc722pOqde?usp=sharing       	diversos-pgs-geral																								
+start chrome https://drive.google.com/file/d/1p9u-sp9uGUcPWBp-gklmrvN_YtMdeWDA/view?usp=sharing	ccleaner portable																								
+start chrome https://drive.google.com/file/d/1cIhn2W7frhyy3vNDtwVuTtdSdons9VUH/view?usp=sharing	driver booster portable																								
+start chrome https://drive.google.com/drive/folders/1d0ib2eH7BfdjD3YE3Uzl5w6L0NL26nvW?usp=sharing	zenworks																								
+start chrome https://drive.google.com/file/d/1OaviYpWSklT4TI4lNy4y3JjpOdvOYVZL/view?usp=sharing	aida-64 port																																																
+start chrome http://trend.prsp.mpf.mp.br/instaladores/Instala_Client_Setup_Trend11.0_64bits.exe	trend																								
+start chrome https://cnj-pje-programs.s3-sa-east-1.amazonaws.com/pje-office/PJeOffice.exe	pjeoffice																								
+start chrome https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe	google drive																								
+start chrome https://zoom.us/client/5.15.5.19404/ZoomInstallerFull.exe?archType=x64	zoom																								
+start chrome https://ftp.hp.com/pub/softlib/software13/COL85384/fp-211101-2/HP_Color_LJ_Man_MFP_E57540_PCL-6_Win8_Plus_Print_Driver_no_Installer_21034_1.exe	hp E57540																								
+start chrome https://ftp.hp.com/pub/softlib/software13/printers/LJE42540/V4_DriveronlyWebpack-52.2.4918-LJE42540_V4_DriveronlyWebpack.exe	hp E42540																								
+start chrome https://s3-sa-east-1.amazonaws.com/repo.birdid.com.br/tokenvirtual/stable/windows/x64/birdID-Desktop.exe	bird id																								
+start chrome https://dsadata.intel.com/installer 	assistente driver intel																								
+																									
+Expand-Archive -Path Draftv2.zip -DestinationPath C:\Reference																									
+																									
+schtasks /create /sc daily /tn "restart as 2200" /tr "Restart-Computer" /st 22:00																									
+																									
+winget list | select-string "ccleaner"																									
+																									
+Get-ChildItem -Path Cert:\LocalMachine\Trust\																									
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine																									
+																									
+xcopy "Arquivos de Programas RFB" c:\Users\claudio\ /f /e																									
+msiexec /i C:\Users\agent_cloud_x64.msi /quiet /norestart /lv C:\OfficeScan.log																									
+																									
+winget install winget --accept-package-agreements --accept-source-agreements -h																									
+Winget-AutoUpdate-aaSwinget install Winget-AutoUpdate-aaS  --accept-package-agreements																									
+winget install Microsoft.AppInstaller  --accept-package-agreements																									
+																									
+
+																									
+winget install GlavSoft.TightVNC -h --accept-package-agreements --accept-source-agreements --disable-interactivity																									
+winget install winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity																									
+																									
+rename-localUser -Name "prm" -NewName "wdgoi"																									
+Set-LocalUser -Name "Admin07" -Description "Description " -FullName "full name"																									
+																									
+																									
+(gcim Win32_OperatingSystem).LastBootUpTime																									
+get-process | select name, company,path -unique | sort-object -property company																									
+Get-WmiObject -Class Win32_IP4RouteTable | where { $_.destination -eq '0.0.0.0' -and $_.mask -eq '0.0.0.0'} | Sort-Object metric1 | select interfaceindex | set-DnsClientServerAddress -ServerAddresses ('8.8.8.8')																									
+																									

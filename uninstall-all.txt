@@ -1,0 +1,86 @@
+Candy Crush Saga
+Candy Crush Soda Saga
+Client for Open Enterprise Server
+cortana
+eSpace Desktop
+GroupWise
+HP Business Slim Keyboard
+HP Client Security Manager
+HP Connection Optimizer
+HP Documentation
+HP Notifications
+HP PC Hardware Diagnostics Windows
+HP Privacy Settings
+HP QuickDrop
+HP Support Assistant
+HP Sure Recover
+HP Sure Run
+HP Wolf Security
+HP Wolf Security - Console
+Micro Focus Filr
+Microsoft 365 - en-us
+Microsoft 365 - pt-br
+Microsoft 365 (Office)
+Microsoft OneDrive
+Microsoft OneDrive
+Microsoft To Do
+Microsoft.BingNews_8wekyb3d8bbwe
+Microsoft.BingWeather_8wekyb3d8bbwe
+Microsoft.GamingApp_8wekyb3d8bbwe
+Microsoft.Microsoft3DViewer_8wekyb3d8bbwe
+Microsoft.MixedReality.Portal_8wekyb3d8bbwe
+Microsoft.MSPaint_8wekyb3d8bbwe
+myHP
+Office
+OneDrive
+Pacote de drivers de estilo
+Pacote Eco Driver
+Samsung Easy Document Creator
+Samsung Easy Printer Manager
+Samsung Network PC Fax
+Samsung Printer Center
+Samsung Universal Scan Driver
+Skype
+Solitaire & Casual Games
+WinDirStat.WinDirStat
+Xbox Console Companion
+Xbox Game Bar
+Xbox Game Bar Plugin
+Xbox Game Speech Window
+Xbox Identity Provider
+Xbox TCUI
+CCleaner
+Dolby Access
+HP Laser 408
+Paint 3D
+Solitaire & Casual Games
+Print 3D
+PDFsam Enhanced 4
+Samsung OCR Software
+Diagn├│stico da impressora Samsung
+Samsung Printer Diagnostics
+Microsoft.OneConnect_8wekyb3d8bbwe
+Skype
+Microsoft.SkypeApp_kzf8qxf38zg5c
+Xbox Console Companion
+Microsoft.XboxApp_8wekyb3d8bbwe
+Microsoft.YourPhone_8wekyb3d8bbwe
+Samsung Easy Document Creator
+Samsung Easy Printer Manager
+Samsung Eco Driver Pack
+Samsung Network PC Fax
+Samsung OCR Software
+Samsung Printer Center
+Samsung Printer Diagnostics
+Samsung Stylish UI Pack
+Samsung Universal Scan Driver
+Windows NT Messaging
+Novell Messenger
+Microsoft Office Word Viewer 2003
+Microsoft Office Excel Viewer
+Visualizador do Microsoft PowerPoint
+UltraVnc
+uvncbvba.UltraVnc
+Positivo Network Manager
+Jitsi
+Microsoft.OneDrive
