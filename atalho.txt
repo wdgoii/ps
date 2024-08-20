@@ -1,8 +1,252 @@
+importado da planilha
+
+powershell
+
+ultimos comandos																										
+	diskpart																									
+		CREATE VDISK FILE="c:\users\prm\downloads\pen.vhd" MAXIMUM=6000 type=fixed																								
+	https://learn.microsoft.com/pt-br/windows-hardware/manufacture/desktop/boot-to-vhd--native-boot--add-a-virtual-hard-disk-to-the-boot-menu?view=windows-11																									
+																										
+																										
+																										
+																										
+																										
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass																										
+certificados																										
+	get-childItem | Where-Object subject -Match "Autoridade*" | select pspath,notafter,issu*,subj*																									
+	remove-Item Cert:\LocalMachine\TrustedPeople\A6E6D7B8E8E74CA82CAE57FEC023F2596F447ABD -force																									
+	encontrados																									
+		pessoal																								
+x			AuthRoot  -  CN=Autoridade Certificadora Raiz Brasileira v5/v10, OU=Instituto Nacional de Tecnologia da Informacao - ITI, O=ICP-Brasil, C=BR																							
+x			ca            - C=BR, O=MPF, OU=Ministerio Publico Federal, CN=Autoridade Certificadora Raiz Interna MPF v1/v0																							
+x			ca             -  CN=Autoridade Certificadora Raiz Brasileira v5/v10, OU=Instituto Nacional de Tecnologia da Informacao - ITI, O=ICP-Brasil, C=BR																							
+x			ca            - C=BR, O=MPF, OU=Autoridade Certificadora Raiz Interna MPF v0, CN=AC Pessoas MPF v0																							
+x			ca           - Subject     : C=BR, O=MPF, OU=Autoridade Certificadora Raiz Interna MPF v0, CN=AC Equipamentos MPF v0																							
+x			root        - CN=Autoridade Certificadora Raiz Brasileira v5/v10, OU=Instituto Nacional de Tecnologia da Informacao - ITI, O=ICP-Brasil, C=BR																							
+x			root        - C=BR, O=MPF, OU=Ministerio Publico Federal, CN=Autoridade Certificadora Raiz Interna MPF v0																							
+x			my          -Subject     : O=mpf, OU=prsp, CN=wdgoi																							
+	remover ssl																									
+		certutil -urlcache * delete																								
+																										
+checkpoint																										
+	Enable-ComputerRestore -Drive "C:", "D:"																									
+	Checkpoint-Computer -Description "MyRestorePoint-01" -RestorePointType MODIFY_SETTINGS																									
+	Get-ComputerRestorePoint | Format-Table -AutoSize																									
+	Restore-Computer -RestorePoint 1																									
+	Restart-Computer																									
+	https://techexpert.tips/pt-br/powershell-pt-br/powershell-criar-pontos-de-restauracao/																									
+																										
+energia																										
+	powercfg /L																									
+		ver opcoes																								
+	powercfg /S 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c																									
+		alto desempenho																								
+	ao fechar a tampa nada aconece																									
+		powercfg -setdcvalueindex SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936  0																								
+		powercfg -setacvalueindex SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 0																								
+																										
+desligar apos 10 hrs de uso																										
+	C:\Users\aadicionar\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup																									
+	%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup																									
+																										
+desintalar programas																										
+	winget uninstall "HP Support Solutions Framework"																									
+	winget list | select-string "ccleaner"																									
+	listar																									
+		$INSTALLED = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate																								
+		$INSTALLED += Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate																								
+		$INSTALLED | ?{ $_.DisplayName -ne $null } | sort-object -Property DisplayName -Unique | where-object displayname -notlike "Microsoft*" | where-object displayname -notlike "Intel*" | Format-Table -AutoSize																								
+		Get-WmiObject -Class Win32_Product | Select-Object -Property Name																								
+		Get-WmiObject -Class Win32_Product | Select-Object -Property Name																								
+		Get-CimInstance -Class Win32_Product | Select-Object -Property Name																								
+																										
+windows update																										
+	modulo																									
+	psresource => PSWindowsUpdate																									
+	psrepository => PSGallery																									
+																										
+	Install-PSResource -Name PSWindowsUpdate																									
+																										
+	set-executionpolicy remotesigned 																									
+																										
+	Import-Module PSWindowsUpdate																									
+	Get-WindowsUpdate																									
+	Install-WindowsUpdate																									
+	Get-WUlist -MicrosoftUpdate																									
+	Get-WindowsUpdate -AcceptAll -Install -AutoReboot																									
+	Get-WUHistory -MaxDate (Get-Date).AddDays(-1)																									
+																										
+eventos																										
+																										
+acesso administrador																										
+	cmd => runas /user:prm powershell																									
+	powershell => start-process powershell -verb runas																									
+																										
+reparar windows																										
+	3.1 dism /online /cleanup-image /scanhealth																									
+	3.2 dism /online /cleanup-image /checkhealth																									
+	3.3 dism /online /cleanup-image /restorehealth																									
+	DISM /Online /Cleanup-Image /RestoreHealth /source:WIM:X:\Sources\Install.wim:1 /LimitAccess																									
+	5.1 sfc /scannow																									
+																										
+	For CheckHealth: Repair-WindowsImage -CheckHealth																									
+	For ScanHealth: Repair-WindowsImage -ScanHealth																									
+	For RestoreHealth: Repair-WindowsImage -RestoreHealth																									
+																										
+	wureset																									
+	https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process?view=powershell-7.4																									
+	Get-Process | Where-Object { $_.CPU -gt 70 -and $_.WS -gt 50MB }  | Sort-Object cpu -Descending | select id,path,parent,Description,StartTime,processname | Format-List																									
+																										
+																										
+conexao remota																										
+	Enable-PSRemoting -Force																									
+	$Cred = Get-Credential																									
+																										
+	Set-Item WSMan:\localhost\Client\TrustedHosts -Value 10.112.24.69																									
+	Enter-PSSession  -Credential $Cred -ComputerName 10.112.24.69																									
+	Set-WSManQuickConfig -force																									
+	Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine																									
+	winrm 																									
+	$Session = New-PSSession -ComputerName "Server02" -Credential "Contoso\User01"																									
+	Copy-Item "D:\Folder002\" -Destination "C:\Folder002_Copy\" -ToSession $Session																									
+																										
+	RDP																									
+		https://www.airdroid.com/quick-guides/powershell-enable-rdp/																								
+		Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0																								
+		get-itemProperty -Path . -Name P*																								
+		https://faun.pub/configure-windows-firewall-rules-for-remote-access-powershell-49a4cb2d2223																								
+																										
+																										
+																										
+																										
+servicos																										
+	get-service | Where-Object name -like "Rem*" | Format-Table -AutoSize																									
+	Get-Service | Where-Object {$_.Status -EQ “Running”}																									
+	Restart-Service -Force -Name "SessionEnv"																									
+	Set-Service -Name SessionEnv -StartupType Automatic																									
+		https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-service?view=powershell-7.3																								
+	Get-Service SessionEnv | Select-Object -Property Name, StartType, Status																									
+																										
+																										
+arquivos																										
+	remove-item C:\Windows\Temp\* -Force -recurse -confirm:$false																									
+	remove-item $env:userprofile\AppData\Local\Temp\* -force -recurse -confirm:$false																									
+																										
+repositorios																										
+	get-psrepository																									
+		https://www.powershellgallery.com/api/v2																								
+																										
+																										
+	module																									
+		PSWindowsUpdate, PowerShellGet, WindowsUpdate,...																								
+		Get-Module -ListAvailable																								
+		Install-Module PowerShellGet -Force -AllowClobber																								
+		(Get-Module -ListAvailable | Where-Object {$_.ModuleType -ne 'Manifest' -and $_.moduletype -eq 'script'}).ExportedCommands.SyncRoot																								
+																										
+	Install-Script -Name Get-LoggedOnUsers																									
+	Install-Module -Name PowerShellGet -AllowPrerelease -Force																									
+																										
+																										
+usuarios																										
+	Install-Script -Name Get-LoggedOnUsers																									
+	query user																									
+	query session																									
+	qwinsta																									
+	query user /server:DESKTOP-THAT																									
+																										
+driver																										
+	get-windowsdriver																									
+	get-WindowsDriver -Online | where-object {$_.classname -eq 'Display'}|select driver, originalfilename, classdescription, providername | format-list																									
+	driverquery /v																									
+	pnputil /enum-drivers /class "System"																									
+	Get-CimInstance Win32_PnPEntity | Where-Object { $_.ConfigManagerErrorCode -ne 0 } | Select-Object Name, Status, ConfigManagerErrorCode																									
+																										
+																										
+modulos																										
+	get-psrepository																									
+	get-packageprovider																									
+	get-packagesource																									
+	(Get-Module -ListAvailable | Where-Object {$_.ModuleType -ne 'Manifest' -and $_.moduletype -eq 'script'}).ExportedCommands.SyncRoot | findstr "Get-"																									
+																										
+logon automatico																										
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" -Name "DevicePasswordLessBuildVersion" -Value 0																									
+																										
+	$RegKey = “HKLM:\SO FTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon”																									
+	ForEach ($subkey in “AutoAdminLogon”, “DefaultPassword”)																									
+	{																									
+	if (Get-ItemProperty -Name $subkey -path $RegKey -ErrorAction SilentlyContinue)																									
+	{																									
+	Remove-ItemProperty -Path $RegKey -Name $subkey																									
+	}																									
+	}																									
+																										
+servicos																										
+	PS C:\Users\prm> Stop-Service BITS																									
+	PS C:\Users\prm> Stop-Service CryptSvc																									
+	PS C:\Users\prm> Stop-Service wuauserv																									
+	PS C:\Users\prm> Stop-Service spooler																									
+																										
+inicializacao automatica																										
+	C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\																									
+																										
+ip address																										
+	New-NetIPAddress -InterfaceIndex 12 -IPAddress 192.168.0.1																									
+	Set-NetIPAddress -InterfaceIndex 12 -IPAddress 192.168.0.1 -PrefixLength 24																									
+	dns google setting																									
+		Get-WmiObject -Class Win32_IP4RouteTable | where { $_.destination -eq '0.0.0.0' -and $_.mask -eq '0.0.0.0'} | Sort-Object metric1 | select interfaceindex | set-DnsClientServerAddress -ServerAddresses ('8.8.8.8') 																								
+		Get-NetAdapter | Where-Object {$_.Status -eq "up" -and $_.virtual -eq $false} | Set-DnsClientServerAddress -ServerAddresses "8.8.8.8"																								
+		Get-NetAdapter | Where-Object {$_.Status -eq "up" -and $_.virtual -eq $false} | Set-DnsClientServerAddress -ResetServerAddresses																								
+	Set-DnsClientServerAddress -InterfaceIndex $Adapter.InterfaceIndex -ResetServerAddresses																									
+	Get-NetIPAddress | Where-Object { ($_.AddressFamily -EQ 'IPv4') -and ($_.interfacealias -eq 'Ethernet' -or $_.interfacealias -eq  'Wi-Fi') }  | select ipaddress, interfacealias,prefix*, suffix*																									
+	Get-NetAdapter | where status -eq 'up' | select MediaConnectionState, ifOperStatus, ifAlias, ifDesc, InterfaceIndex, Virtual																									
+	(Get-NetIPConfiguration | Where-Object {$_.interfacealias -eq 'wi-fi'}).dnsserver																									
+	dhcp ?																									
+		(Get-NetAdapter | Where-Object {$_.Status -eq "up" -and $_.virtual -eq $false} |Get-NetIPInterface -AddressFamily 'ipv4').Dhcp																								
+																										
+																										
+download																										
+	google Drive =>  Invoke-WebRequest -uri "https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe" -OutFile gd.exe																									
+	PS.msi => Invoke-WebRequest -uri "https://github.com/PowerShell/PowerShell/releases/download/v7.4.3/PowerShell-7.4.3-win-x64.msi" -OutFile ps.msi																									
+	Pje.exe => Invoke-WebRequest -uri "https://pje-office.pje.jus.br/pro/pjeoffice-pro-v2.5.14u-windows_x64.exe" -outfile pje.exe																									
+	bird.exe => Invoke-WebRequest -uri "https://s3-sa-east-1.amazonaws.com/repo.birdid.com.br/tokenvirtual/stable/windows/x64/birdID-Desktop.exe" -outfile bird.exe																									
+	start chrome "https://ftp.hp.com/pub/softlib/software13/COL85384/fp-211101-2/HP_Color_LJ_Man_MFP_E57540_PCL-6_Win8_Plus_Print_Driver_no_Installer_21034_1.exe --incognito"																									
+	Start-Process msedge -ArgumentList "uol.com.br -InPrivate"																									
+																										
+horario																										
+	w32tm /config /manualpeerlist:"ntp.mpf.mp.br" /syncfromflags:manual /update																									
+	net stop w32time																									
+	net start w32time																									
+																										
+impressoras																										
+	Get-WmiObject -Class Win32_Printer | format-table																									
+	get-printer | Where-Object {$_.PortName -match '10.112'}| select driver*, port*, name | format-list																									
+	get-printerdriver |where {$_.name -match 'e57540'} | select * | format-list 																									
+	Get-Printer | Remove-Printer -Force																									
+	Get-Printerport | Where-Object {$_.name -match 'tcp'} | select name, portnumber, printerhostaddress																									
+	nao imprime																									
+		Stop-Service -Name Spooler -Force																								
+		Remove-Item -Path "C:\Windows\System32\spool\PRINTERS\*" -Recurse																								
+		Start-Service -Name Spooler																								
+		Get-Service -Name Spooler																								
+																										
+web - interacao																										
+	Invoke-WebRequest																									
+																										
+audio																										
+	Install-Module -Name AudioDeviceCmdlets -RequiredVersion 3.0.0.4																									
+	Set-AudioDevice <AudioDevice> -index 1																									
+																										
+
+-------------------------------------------------------------------------------------------------
+atalhos
+
+alterar a hora do sistema	conf win , conf seg, politicas locais, atribu de dire do usuario, alterar a hora do sistema																								
 obter usuarios	Get-WmiObject -ComputerName workstation1 -Class Win32_UserAccount -Filter "LocalAccount=True" | Select PSComputername, Name, Status, Disabled, AccountType, Lockout, PasswordRequired, PasswordChangeable | Out-GridView																								
 																									
 																									
 appwiz.cpl	programas, recursos																								
 ctrl+alt+shift+f (vnc)	sair da tela cheia																								
+comandos Windows																									
 oobe\bypassnro	pular na instalacao do windows 																								
 Certmgr.exe	certificados																								
 cleanmgr	limpeza																								
@@ -39,9 +283,9 @@ wf.msc	firewall
 																									
 powercfg -h off	energia, suspensao																								
 powercfg /hibernate off	energia, hibernar																								
-net user suser senha /add /EXPIRES:NEVER  	usuario, expirar																								
-runas /user:prm powershell																							
-start-process powershell -verb runas
+net user suser 34039712 /add /EXPIRES:NEVER  	usuario, expirar																								
+runas /user:prm powershell	powershell root 01																								
+start-process powershell -verb runas	powershell root 02																								
 																									
 																									
 powercfg -h off																									
@@ -49,18 +293,25 @@ powercfg /hibernate off
 powercfg /change monitor-timeout-ac 20																									
 powercfg /change disk-timeout-ac 0																									
 powercfg /change standby-timeout-ac 0																									
-
-add-localGroupMember -Group "Administradores" -Member "user"																									
+net user usuario temp42 /expires:never																									
+net user prm temp  /expires:never																									
+add-localGroupMember -Group "Administradores" -Member "suser"																									
 wuauclt.exe /updatenow																									
 Add-Computer -WorkGroupName "RIOPRETO"																									
+add-localGroupMember -Group "Administradores" -Member "suser"																									
 																									
 Enable-PSRemoting -Force																									
-Set-Item WSMan:\localhost\Client\TrustedHosts -Value <IP>																								
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value 10.112.24.167																									
 get-netadapter																									
 Set-NetConnectionProfile -InterfaceIndex 17 -NetworkCategory Private																									
 																									
-																							
+net user prm temp /expires:never																									
+net user suser temp /expires:never																									
+																									
 Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private																									
+																									
+																									
+																									
 																									
 cleanmgr /d /verylowdisk C:																									
 Remove-Item $env:temp\* -Recurse -force																									
@@ -69,14 +320,22 @@ remove-item $env:userprofile\AppData\Local\Temp\*
 get-computerinfo|select csmodel, csname, osversion, csmanufacturer, CsProcessors																									
 																									
 shutdown /s /t 8000																									
-rename-computer <name>																							
-																																													
+rename-computer PRSPP																									
+																									
+net user usuario usuario /add /EXPIRES:NEVER  																									
+shutdown /s /t 50000																									
+																									
+hdwwiz.cpl																									
+ipconfig /all > c:\users\prm\temp.txt																									
+notepad c:\users\prm\temp.txt																									
+																									
 start chrome https://drive.google.com/drive/folders/1TKABhyLUMfKB667nEjHSWej0ZladSU-o?usp=sharing	prm down																								
 start chrome https://drive.google.com/drive/folders/1OSzN9syZcdWCg2Uag3zqEyxc722pOqde?usp=sharing       	diversos-pgs-geral																								
 start chrome https://drive.google.com/file/d/1p9u-sp9uGUcPWBp-gklmrvN_YtMdeWDA/view?usp=sharing	ccleaner portable																								
 start chrome https://drive.google.com/file/d/1cIhn2W7frhyy3vNDtwVuTtdSdons9VUH/view?usp=sharing	driver booster portable																								
 start chrome https://drive.google.com/drive/folders/1d0ib2eH7BfdjD3YE3Uzl5w6L0NL26nvW?usp=sharing	zenworks																								
-start chrome https://drive.google.com/file/d/1OaviYpWSklT4TI4lNy4y3JjpOdvOYVZL/view?usp=sharing	aida-64 port																																																
+start chrome https://drive.google.com/file/d/1OaviYpWSklT4TI4lNy4y3JjpOdvOYVZL/view?usp=sharing	aida-64 port																								
+																									
 start chrome http://trend.prsp.mpf.mp.br/instaladores/Instala_Client_Setup_Trend11.0_64bits.exe	trend																								
 start chrome https://cnj-pje-programs.s3-sa-east-1.amazonaws.com/pje-office/PJeOffice.exe	pjeoffice																								
 start chrome https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe	google drive																								
@@ -88,7 +347,14 @@ start chrome https://dsadata.intel.com/installer 	assistente driver intel
 																									
 Expand-Archive -Path Draftv2.zip -DestinationPath C:\Reference																									
 																									
+Restart-Computer																									
 schtasks /create /sc daily /tn "restart as 2200" /tr "Restart-Computer" /st 22:00																									
+schtasks /create /sc daily /tn "restart as 2300" /tr "Restart-Computer" /st 23:00																									
+schtasks /create /sc daily /tn "desligar as 2359" /tr "Stop-Computer -ComputerName localhost -force" /st 23:59																									
+																									
+schtasks /create /sc daily /tn "reiniciar as 0100" /tr "shutdown /r /t 10" /st 01:00																									
+schtasks /create /sc daily /tn "desligar as 0200" /tr "shutdown /s /t 10" /st 02:00																									
+schtasks /create /sc daily /tn "desligar as 0230" /tr "Stop-Computer -ComputerName localhost -force" /st 02:30																									
 																									
 winget list | select-string "ccleaner"																									
 																									
@@ -102,7 +368,7 @@ winget install winget --accept-package-agreements --accept-source-agreements -h
 Winget-AutoUpdate-aaSwinget install Winget-AutoUpdate-aaS  --accept-package-agreements																									
 winget install Microsoft.AppInstaller  --accept-package-agreements																									
 																									
-
+ & 'C:\Program Files\TightVNC\tvnserver.exe' -configservice																									
 																									
 winget install GlavSoft.TightVNC -h --accept-package-agreements --accept-source-agreements --disable-interactivity																									
 winget install winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity																									
@@ -110,8 +376,20 @@ winget install winget --accept-package-agreements --accept-source-agreements -h 
 rename-localUser -Name "prm" -NewName "wdgoi"																									
 Set-LocalUser -Name "Admin07" -Description "Description " -FullName "full name"																									
 																									
+get-netadapter | Where-Object Status -eq "Up"																									
+get-NetIPAddress -InterfaceIndex 6																									
+New-NetIPAddress -InterfaceIndex 6 -IPAddress 10.112.24.69 -PrefixLength 23 -DefaultGateway 10.112.24.1																									
+																									
+Remove-NetIPAddress -IPAddress 192.168.0.1 -DefaultGateway 192.168.0.5																									
+Set-DnsClientServerAddress -InterfaceIndex 12 -ServerAddresses ("10.0.0.1","10.0.0.2")																									
+																									
+Set-LocalUser -Name "ftavares" -Description "Fernando Tavares"  -PasswordNeverExpires $false																									
+$temp = query user | select-string "ativo"																									
+$temp2=$temp -Split “ ”																									
+$temp2[1]																									
 																									
 (gcim Win32_OperatingSystem).LastBootUpTime																									
 get-process | select name, company,path -unique | sort-object -property company																									
 Get-WmiObject -Class Win32_IP4RouteTable | where { $_.destination -eq '0.0.0.0' -and $_.mask -eq '0.0.0.0'} | Sort-Object metric1 | select interfaceindex | set-DnsClientServerAddress -ServerAddresses ('8.8.8.8')																									
 																									
+	

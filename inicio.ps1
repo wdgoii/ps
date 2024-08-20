@@ -13,6 +13,7 @@ Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install-winget.ps1" -OutFile
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install.ps1" -OutFile .\install.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install.txt" -OutFile .\install.txt
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install-all.txt" -OutFile .\install-all.txt
+Invoke-WebRequest -uri "https://wdgoii.github.io/ps/inst-ps.ps1" -OutFile .\inst-ps.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/lentidao.ps1" -OutFile .\lentidao.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/printer-add.ps1" -OutFile .\printer-add.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/Reset-WindowsUpdate.ps1" -OutFile .\reset-windowsupdate.ps1

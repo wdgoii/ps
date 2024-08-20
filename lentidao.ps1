@@ -7,7 +7,7 @@ Write-Output "sjrp W 10 Pro => Windows 10 Pro 19041.1.amd64fre.vb_release.191206
 get-computerinfo|select WindowsBuildLabEx							
 Clear-DnsClientCache
 
-firefox reinstalado . politicas de grupo removidas ( HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Mozilla\Firefox )
+# firefox reinstalado . politicas de grupo removidas ( HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Mozilla\Firefox )
 Remove-Item -Path HKLM:\SOFTWARE\Policies\Mozilla\Firefox -Recurse
 
 Write-Output "minha conexao sjrp 39,3mbps / 52,7 mbps"
