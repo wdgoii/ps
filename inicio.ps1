@@ -1,5 +1,6 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
+# invoke-webrequest -uri https://bit.ly/3TkFLPh -outfile .\inicio.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/add-cert.ps1" -OutFile .\add-cert.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/atalho.txt" -OutFile .\atalho.txt
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/criar-atalho.ps1" -OutFile .\criar-atalho.ps1
