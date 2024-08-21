@@ -31,6 +31,8 @@ $info.CsProcessors.name >> C:\Users\informacoes.txt
 get-localUser | select name, lastlogon | Sort-Object lastlogon -Descending >> C:\Users\informacoes.txt
 
 get-printer | Where-Object {$_.PortName -match '10.112.'} | select name, portname | format-table -AutoSize >> C:\users\informacoes.txt
+"-------------------------------------------------" >> C:\Users\informacoes.txt
+Get-PhysicalDisk | Format-Table -AutoSize >> C:\Users\informacoes.txt
 
 
 "----------------- Atualizacoes 90 dias -----------------" >> C:\Users\informacoes.txt
