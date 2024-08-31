@@ -18,7 +18,8 @@ Remove-Item -Path HKLM:\SOFTWARE\Policies\Mozilla\Firefox -Recurse
 Write-Output "minha conexao sjrp 39,3mbps / 52,7 mbps"
 Start-Process chrome 'https://www.minhaconexao.com.br --incognito'
 taskmgr.exe
-Get-Process | Where-Object { $_.CPU -gt 70 -and $_.WS -gt 50MB }  | Sort-Object cpu -Descending | select id,path,Description,StartTime,processname | Format-Table
+#Get-Process | Where-Object { $_.CPU -gt 70 -and $_.WS -gt 50MB }  | Sort-Object cpu -Descending | select id,path,Description,StartTime,processname | Format-Table
+get-process | Sort-Object -Property CPU -Descending | Select-Object id, cpu, name, path -First 20
 
 $Vols = Get-Volume
 "There are $($Vols.Count) volumes to process!"

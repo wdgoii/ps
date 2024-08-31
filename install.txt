@@ -10,7 +10,6 @@ TrackerSoftware.PDF-XChangeEditor
 Oracle.JavaRuntimeEnvironment
 7zip.7zip
 IObit.DriverBooster
-Winget-AutoUpdate-aaS
 Intel.IntelDriverAndSupportAssistant
 Adobe Acrobat Reader
 Microsoft.UI.Xaml.2.8
