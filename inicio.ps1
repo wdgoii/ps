@@ -12,6 +12,7 @@ Invoke-WebRequest -uri "https://wdgoii.github.io/ps/fixdhcp.ps1" -OutFile .\fixd
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/fixip.ps1" -OutFile .\fixip.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/informacoes.ps1" -OutFile .\informacoes.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install-winget.ps1" -OutFile ".\install-winget.ps1"
+Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install-winget02.ps1" -OutFile ".\install-winget02.ps1"
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install.ps1" -OutFile .\install.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install.txt" -OutFile .\install.txt
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install-all.txt" -OutFile .\install-all.txt
