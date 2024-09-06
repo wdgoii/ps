@@ -41,3 +41,4 @@ Get-PhysicalDisk | Format-Table -AutoSize >> C:\Users\informacoes.txt
 Get-WUHistory -MaxDate (Get-Date).AddDays(-90) >> C:\Users\informacoes.txt
 "---------------------------------------------------------" >> C:\Users\informacoes.txt
 
+
