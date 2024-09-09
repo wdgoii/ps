@@ -19,6 +19,7 @@ Invoke-WebRequest -uri "https://wdgoii.github.io/ps/install-all.txt" -OutFile .\
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/inst-ps.ps1" -OutFile .\inst-ps.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/lentidao.ps1" -OutFile .\lentidao.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/printer-add.ps1" -OutFile .\printer-add.ps1
+Invoke-WebRequest -uri "https://wdgoii.github.io/ps/printer-changeport.ps1" -OutFile .\printer-changeport.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/reset-winupdate.ps1" -OutFile .\reset-winupdate.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/uninstall.ps1" -OutFile .\uninstall.ps1
 Invoke-WebRequest -uri "https://wdgoii.github.io/ps/uninstall-all.txt" -OutFile .\uninstall-all.txt 
