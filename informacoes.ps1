@@ -35,10 +35,10 @@ get-printer | Where-Object {$_.PortName -match '10.112.'} | select name, portnam
 Get-PhysicalDisk | Format-Table -AutoSize >> C:\Users\informacoes.txt
 
 
-"----------------- Atualizacoes 90 dias -----------------" >> C:\Users\informacoes.txt
+"----------------- Atualizacoes 130 dias -----------------" >> C:\Users\informacoes.txt
 
 
-Get-WUHistory -MaxDate (Get-Date).AddDays(-90) >> C:\Users\informacoes.txt
+Get-WUHistory -MaxDate (Get-Date).AddDays(-130) >> C:\Users\informacoes.txt
 "---------------------------------------------------------" >> C:\Users\informacoes.txt
 
 
