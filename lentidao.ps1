@@ -9,8 +9,8 @@ Write-Output "sjrp W 10 Pro => Windows 10 Pro 19041.1.amd64fre.vb_release.191206
 get-computerinfo|select WindowsBuildLabEx
 
 ##pastas temporarias
-get-childitem -Path C:\Windows -recurse -file| Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue
-get-childitem -Path C:\Users\ -recurse -file| Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue
+get-childitem -Path C:\Windows -recurse -file -ErrorAction Continue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue
+get-childitem -Path C:\Users\ -recurse -file -ErrorAction Continue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue
 Remove-Item -Path "C:\Windows\System32\spool\PRINTERS\*" -Recurse -Force -ErrorAction SilentlyContinue
 
 Remove-Item -Path HKLM:\SOFTWARE\Policies\Mozilla\Firefox -Recurse
