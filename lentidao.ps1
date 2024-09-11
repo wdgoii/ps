@@ -9,8 +9,8 @@ Write-Output "sjrp W 10 Pro => Windows 10 Pro 19041.1.amd64fre.vb_release.191206
 get-computerinfo|select WindowsBuildLabEx
 
 ##pastas temporarias
-get-childitem -Path C:\Windows -recurse -file -ErrorAction Continue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue
-get-childitem -Path C:\Users\ -recurse -file -ErrorAction Continue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue
+get-childitem -Path C:\Windows -recurse -file -ErrorAction Continue SilentlyContinue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue
+
 Remove-Item -Path "C:\Windows\System32\spool\PRINTERS\*" -Recurse -Force -ErrorAction SilentlyContinue
 
 Remove-Item -Path HKLM:\SOFTWARE\Policies\Mozilla\Firefox -Recurse
@@ -19,7 +19,7 @@ Write-Output "minha conexao sjrp 39,3mbps / 52,7 mbps"
 Start-Process chrome 'https://www.minhaconexao.com.br --incognito'
 taskmgr.exe
 #Get-Process | Where-Object { $_.CPU -gt 70 -and $_.WS -gt 50MB }  | Sort-Object cpu -Descending | select id,path,Description,StartTime,processname | Format-Table
-get-process | Sort-Object -Property CPU -Descending | Select-Object id, cpu, name, path -First 20
+get-process | Sort-Object -Property CPU -Descending | Select-Object id, cpu, name, path -First 30
 
 $Vols = Get-Volume
 "There are $($Vols.Count) volumes to process!"
@@ -30,11 +30,8 @@ For ($Cntr = 0 ; $Cntr -lt $Vols.Count; $Cntr++) {
 #get-childitem -Path 'C:\Users\wdgoi\AppData\Local\Google\Chrome\User Data' -recurse -file | Where-Object {$_.PSpath -match "cookies"} | remove-item -Force
 $Us = get-localUser | where-Object {$_.enabled -eq 'True'}
 For ($Cntr = 0 ; $Cntr -lt $Us.Count; $Cntr++) {
-    remove-item "C:\Users\$($Us[$($Cntr)].name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*.*" -ErrorAction Continue
+    Get-ChildItem -File -Path "C:\Users\$($Us[$($Cntr)].name)\AppData" | Where-Object { ($_.PSpath -match "\\cache\\") -or ($_.PSpath -match "\\temp\\")  } | Remove-Item -force -ErrorAction SilentlyContinue
 }
-
-
-
 
 # Clear-DnsClientCache
 # dism /online /cleanup-image /scanhealth
