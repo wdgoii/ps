@@ -33,6 +33,9 @@ For ($Cntr = 0 ; $Cntr -lt $Us.Count; $Cntr++) {
     Get-ChildItem -File -Path "C:\Users\$($Us[$($Cntr)].name)\AppData" | Where-Object { ($_.PSpath -match "\\cache\\") -or ($_.PSpath -match "\\temp\\")  } | Remove-Item -force -ErrorAction SilentlyContinue
 }
 
+#saude hd
+Get-CimInstance -Namespace root\wmi -Class MSStorageDriver_FailurePredictStatus | select reason,active,instancename
+
 # Clear-DnsClientCache
 # dism /online /cleanup-image /scanhealth
 # dism /online /cleanup-image /restorehealth
