@@ -7,13 +7,9 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 set-Location -Path Cert:\CurrentUser\My
 $pwd_secure_string = Read-Host "Enter a Password" -AsSecureString
-if ($pwd_secure_string -eq '') {
-    $secureString = ConvertTo-SecureString -String  'bzn9NAvF1m3ObckX'
-    import-pfxCertificate -FilePath 'C:\Users\wdgoi\Documents\GD\Meu Drive\manuais\certificado-vpn\wdgoi@mpf.mp.br.p12' -Password $securestring
-else {
-    <# Action when all if and elseif conditions are false #>
-}
-}
+import-pfxCertificate -FilePath c:\Users\wdgoi\Documents\GD\Meu Drive\cert-wdg\wdgoi@mpf.mp.br.p12' -Password $securestring
+
+<#
 
 set-Location -Path Cert:\CurrentUser\Root\
 Import-Certificate -FilePath 'C:\Users\wdgoi\Documents\GD\Meu Drive\manuais\certificado-vpn\AutoridadeCertificadoraRaizInternaMPFv0.crt'
@@ -38,3 +34,5 @@ Import-Certificate -FilePath 'C:\Users\wdgoi\Documents\GD\Meu Drive\manuais\cert
 
 
 & 'C:\Users\wdgoi\Documents\GD\Meu Drive\manuais\certificado-vpn\forcepoint-cliente.exe'
+
+#>
