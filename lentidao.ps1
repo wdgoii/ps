@@ -3,6 +3,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 #Write-Output "sjrp 12ms "
 #Test-NetConnection portal-preprod.mpf.mp.br -InformationLevel Detailed
 
+
 Write-Output "sjrp W 11 Pro => Windows 10 Pro 22621.1 220506-1250"
 Write-Output "sjrp W 10 Pro => Windows 10 Pro 19041.1.amd64fre.vb_release.191206-1406"
 (Get-CimInstance Win32_OperatingSystem).Caption							
