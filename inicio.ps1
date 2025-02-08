@@ -1,6 +1,8 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
-# URL do diretório onde os arquivos estão listados
+# invoke-webrequest -uri https://bit.ly/3TkFLPh -outfile .\inicio.ps1
+
+# URL do diretório onde os arquivos estão listado
 $directoryUrl = "https://wdgoii.github.io/ps/"
 
 # Obter o conteúdo do diretório
