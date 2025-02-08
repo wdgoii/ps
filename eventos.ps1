@@ -3,7 +3,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 # Script PowerShell para coletar eventos de erro e críticos do dia atual para investigar tela azul.
 
 # Define o dia de hoje para filtrar os eventos
-$hoje = Get-Date -Format "2025-01-07"
+$hoje = Get-Date -Format "2025-02-08"
 
 # Consulta os logs de eventos de Sistema e Aplicação para eventos de Erro e Crítico no dia de hoje
 Write-Host "Procurando eventos de Erro e Crítico nos logs de Sistema e Aplicação para o dia: $($hoje)"
