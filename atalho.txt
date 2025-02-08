@@ -76,8 +76,14 @@ windows update
 	Get-WindowsUpdate -AcceptAll -Install -AutoReboot																									
 	Get-WUHistory -MaxDate (Get-Date).AddDays(-1)																									
 																										
-eventos																										
-																										
+eventos		
+Get-WinEvent -FilterHashtable @{
+LogName = "System", "Application"
+Level = 1, 2, 3 # 1: Critical, 2: Error
+StartTime = [datetime]::Today
+EndTime = ([datetime]::Today).Date.AddDays(300)
+} | Sort-Object TimeCreated -Descending | Format-Table LogName, TimeCreated, ID, LevelDisplayName, Source, Message -Wrap
+																						
 acesso administrador																										
 	cmd => runas /user:prm powershell																									
 	powershell => start-process powershell -verb runas																									
