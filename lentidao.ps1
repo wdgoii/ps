@@ -1,11 +1,5 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
-#Write-Output "sjrp 12ms "
-#Test-NetConnection portal-preprod.mpf.mp.br -InformationLevel Detailed
-
-(Get-CimInstance Win32_OperatingSystem).Caption							
-get-computerinfo|select WindowsBuildLabEx
-
 ##pastas temporarias
 get-childitem -Path C:\Windows -recurse -file -ErrorAction Continue SilentlyContinue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
 
@@ -22,13 +16,13 @@ get-process | Sort-Object -Property CPU -Descending | Select-Object id, cpu, nam
 $Vols = Get-Volume
 "There are $($Vols.Count) volumes to process!"
 For ($Cntr = 0 ; $Cntr -lt $Vols.Count; $Cntr++) {
- Repair-Volume -ObjectId "$($Vols[$($Cntr)].ObjectId)"
+ Repair-Volume -ObjectId "$($Vols[$($Cntr)].ObjectId)" 2>$null
 }
 
 #get-childitem -Path 'C:\Users\wdgoi\AppData\Local\Google\Chrome\User Data' -recurse -file | Where-Object {$_.PSpath -match "cookies"} | remove-item -Force
 $Us = get-localUser | where-Object {$_.enabled -eq 'True'}
 For ($Cntr = 0 ; $Cntr -lt $Us.Count; $Cntr++) {
-    Get-ChildItem -File -Path "C:\Users\$($Us[$($Cntr)].name)\AppData" | Where-Object { ($_.PSpath -match "\\cache\\") -or ($_.PSpath -match "\\temp\\")  } | Remove-Item -force -ErrorAction SilentlyContinue
+    Get-ChildItem -File -Path "C:\Users\$($Us[$($Cntr)].name)\AppData" | Where-Object { ($_.PSpath -match "\\cache\\") -or ($_.PSpath -match "\\temp\\")  } | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
 }
 
 #saude hd
