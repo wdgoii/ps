@@ -21,7 +21,7 @@ New-Item -Path 'C:\users\informacoes.txt' -ItemType File  1>$null
 $IP+"/"+$MaskBits+" gat: "+$Gateway+" dns: "+$DNS+" DHCP: "+$DHCP > C:\Users\informacoes.txt
 $info.CsName+" "+$info.CsManufacturer+" "+$info.CsModel >> C:\Users\informacoes.txt
 $info.CsProcessors.name >> C:\Users\informacoes.txt
-(Get-CimInstance Win32_OperatingSystem).Caption+" => "+$info.WindowsProductName+" "+$info.WindowsBuildLabEx >> C:\Users\informacoes.txt
+(Get-CimInstance Win32_OperatingSystem).Version >> C:\Users\informacoes.txt
 "bios date: "+$info.BiosReleaseDate >> C:\Users\informacoes.txt
 "OsTotalVisibleMemorySize: "+$info.OsTotalVisibleMemorySize >> C:\Users\informacoes.txt
 "wuserver : " + ((Get-WUSettings | Select-Object wuserver).wuserver) >> C:\Users\informacoes.txt
