@@ -17,22 +17,21 @@ foreach ($profilePath in $userProfiles) {
 }
 #>
 
-Get-ChildItem -Path "C:\Windows\Temp" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
-Get-ChildItem -Path "C:\Windows\Logs" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
-Get-ChildItem -Path "C:\Windows\System32\LogFiles" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
-Get-ChildItem -Path "C:\Windows\Prefetch" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
-Remove-Item -Path "C:\Windows\System32\spool\PRINTERS\*" -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item -Path HKLM:\SOFTWARE\Policies\Mozilla\Firefox -Recurse
+Get-ChildItem -Path "C:\Windows\Temp"                       -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path "C:\Windows\Logs"                       -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path "C:\Windows\System32\LogFiles"          -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path "C:\Windows\Prefetch"                   -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path "C:\Windows\System32\spool\PRINTERS"    -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path HKLM:\SOFTWARE\Policies\Mozilla\Firefox -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 
 Stop-Service -Name wuauserv -Force
-Get-ChildItem -Path "C:\Windows\SoftwareDistribution\Download" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path "C:\Windows\SoftwareDistribution\Download" -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 Start-Service -Name wuauserv
 
 # Removendo atualizações obsoletas
 #Start-Process -FilePath "cmd.exe" -ArgumentList "/c Dism /Online /Cleanup-Image /StartComponentCleanup" -Wait
 
 $Vols = Get-Volume
-"There are $($Vols.Count) volumes to process!"
 For ($Cntr = 0 ; $Cntr -lt $Vols.Count; $Cntr++) {
  Repair-Volume -ObjectId "$($Vols[$($Cntr)].ObjectId)" 2>$null
 }
@@ -40,7 +39,7 @@ For ($Cntr = 0 ; $Cntr -lt $Vols.Count; $Cntr++) {
 #get-childitem -Path 'C:\Users\wdgoi\AppData\Local\Google\Chrome\User Data' -recurse -file | Where-Object {$_.PSpath -match "cookies"} | remove-item -Force
 $Us = get-localUser | where-Object {$_.enabled -eq 'True'}
 For ($Cntr = 0 ; $Cntr -lt $Us.Count; $Cntr++) {
-    Get-ChildItem -File -Path "C:\Users\$($Us[$($Cntr)].name)\AppData" | Where-Object { ($_.PSpath -match "\\cache*\\") -or ($_.PSpath -match "\\temp\\")  } | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
+    Get-ChildItem -File -Path "C:\Users\$($Us[$($Cntr)].name)\AppData" -Recurse -Force -ErrorAction SilentlyContinue | Where-Object { ($_.PSpath -match "\\cache*\\") -or ($_.PSpath -match "\\temp\\")  } | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
 }
 
 #saude hd
