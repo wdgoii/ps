@@ -1,4 +1,6 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+#main
+
 #get-childitem -Path C:\Windows -recurse -file -ErrorAction Continue SilentlyContinue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
 
 #limpar pastas temp dentro da pasta users
