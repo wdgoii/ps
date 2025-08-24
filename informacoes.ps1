@@ -1,5 +1,6 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
+#get-process | Sort-Object -Property CPU -Descending | Select-Object id, cpu, name, path -First 30
 #Install-Module -Name PSWindowsUpdate
 
 $IPType = "IPv4"
