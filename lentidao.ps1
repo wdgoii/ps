@@ -4,6 +4,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 #get-childitem -Path C:\Windows -recurse -file -ErrorAction Continue SilentlyContinue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
 
 #limpar pastas temp dentro da pasta users
+<#
 $userProfiles = Get-CimInstance -ClassName Win32_UserProfile | Where-Object {
     $_.LocalPath -notlike '*\systemprofile*' -and
     $_.LocalPath -notlike '*\serviceprofiles*' -and
@@ -14,22 +15,21 @@ foreach ($profilePath in $userProfiles) {
     get-childitem -Path $LocaltempPath -recurse -Force | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
     get-childitem -Path $LocaltempPath -recurse -Force | Where-Object {$_.PSpath -match "\\cache*\\"} | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
 }
+#>
 
 Get-ChildItem -Path "C:\Windows\Temp" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 Get-ChildItem -Path "C:\Windows\Logs" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 Get-ChildItem -Path "C:\Windows\System32\LogFiles" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 Get-ChildItem -Path "C:\Windows\Prefetch" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+Remove-Item -Path "C:\Windows\System32\spool\PRINTERS\*" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path HKLM:\SOFTWARE\Policies\Mozilla\Firefox -Recurse
 
 Stop-Service -Name wuauserv -Force
 Get-ChildItem -Path "C:\Windows\SoftwareDistribution\Download" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 Start-Service -Name wuauserv
 
 # Removendo atualizações obsoletas
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c Dism /Online /Cleanup-Image /StartComponentCleanup" -Wait
-
-Remove-Item -Path "C:\Windows\System32\spool\PRINTERS\*" -Recurse -Force -ErrorAction SilentlyContinue
-
-Remove-Item -Path HKLM:\SOFTWARE\Policies\Mozilla\Firefox -Recurse
+#Start-Process -FilePath "cmd.exe" -ArgumentList "/c Dism /Online /Cleanup-Image /StartComponentCleanup" -Wait
 
 $Vols = Get-Volume
 "There are $($Vols.Count) volumes to process!"
@@ -44,7 +44,7 @@ For ($Cntr = 0 ; $Cntr -lt $Us.Count; $Cntr++) {
 }
 
 #saude hd
-Get-CimInstance -Namespace root\wmi -Class MSStorageDriver_FailurePredictStatus | Select-Object reason,active,instancename
+#Get-CimInstance -Namespace root\wmi -Class MSStorageDriver_FailurePredictStatus | Select-Object reason,active,instancename
 
 # Clear-DnsClientCache
 # dism /online /cleanup-image /scanhealth
