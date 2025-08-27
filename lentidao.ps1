@@ -2,18 +2,6 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 #pcquarto
 #get-childitem -Path C:\Windows -recurse -file -ErrorAction Continue SilentlyContinue | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
 
-#limpar pastas temp dentro da pasta users
-$userProfiles = Get-CimInstance -ClassName Win32_UserProfile | Where-Object {
-    $_.LocalPath -notlike '*\systemprofile*' -and
-    $_.LocalPath -notlike '*\serviceprofiles*' -and
-    $_.LocalPath -notlike '*\Public'
-} | Select-Object -ExpandProperty LocalPath
-foreach ($profilePath in $userProfiles) {
-    $LocaltempPath = Join-Path -Path $_.LocalPath -ChildPath 'AppData\Local'
-    get-childitem -Path $LocaltempPath -recurse -Force | Where-Object {$_.PSpath -match "\\Temp\\"} | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
-    get-childitem -Path $LocaltempPath -recurse -Force | Where-Object {$_.PSpath -match "\\cache*\\"} | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
-}
-
 Get-ChildItem -Path "C:\Windows\Temp" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 Get-ChildItem -Path "C:\Windows\Logs" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 Get-ChildItem -Path "C:\Windows\System32\LogFiles" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
@@ -42,12 +30,9 @@ For ($Cntr = 0 ; $Cntr -lt $Us.Count; $Cntr++) {
     Get-ChildItem -File -Path "C:\Users\$($Us[$($Cntr)].name)\AppData" | Where-Object { ($_.PSpath -match "\\cache*\\") -or ($_.PSpath -match "\\temp\\")  } | Remove-Item -force -ErrorAction SilentlyContinue 2>$null
 }
 
-#saude hd
-Get-CimInstance -Namespace root\wmi -Class MSStorageDriver_FailurePredictStatus | Select-Object reason,active,instancename
 
 # Clear-DnsClientCache
 # dism /online /cleanup-image /scanhealth
 # dism /online /cleanup-image /restorehealth
 # sfc /scannow
-# repair-Volume -DriveLetter c -Scan -Verbose
 # chkdsk /f /r /b

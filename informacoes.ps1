@@ -1,5 +1,8 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
+# #saude hd
+#Get-CimInstance -Namespace root\wmi -Class MSStorageDriver_FailurePredictStatus | Select-Object reason,active,instancename
+
 #get-process | Sort-Object -Property CPU -Descending | Select-Object id, cpu, name, path -First 30
 #Install-Module -Name PSWindowsUpdate
 
