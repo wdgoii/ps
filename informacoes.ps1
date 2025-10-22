@@ -14,7 +14,7 @@ $Gateway =  (Get-NetRoute               -InterfaceIndex $interface.InterfaceInde
 $DNS =      (Get-DnsClientServerAddress -InterfaceIndex $interface.InterfaceIndex -AddressFamily $IPType).ServerAddresses
 $info = get-computerinfo|Select-Object csmodel, csname, osversion, csmanufacturer, CsProcessors, WindowsBuildLabEx, WindowsProductName, BiosReleaseDate , OsTotalVisibleMemorySize
 
-
+## comentario soh de bobeira
 
 Get-ChildItem -Path 'C:\Users\informacoes.txt' | Remove-Item -Force -ErrorAction SilentlyContinue 2>$null
 New-Item -Path 'C:\users\informacoes.txt' -ItemType File  1>$null
