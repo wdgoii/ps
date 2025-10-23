@@ -1,0 +1,126 @@
+appwiz.cpl	programas, recursos	
+ctrl+alt+shift+f (vnc)	sair da tela cheia	
+comandos Windows		
+oobe\bypassnro	pular na instalacao do windows 	
+Certmgr.exe	certificados	
+cleanmgr	limpeza	
+compmgmt.msc	computador, gerenciamento	
+control admintools	ferramentas	
+control netconnections	rede	
+control printers	impressora	
+control userpasswords2	usuario	
+dfrg.msc	disco desfragmentador	
+firewall.cpl		
+fsmgmt.msc	pastas compartilhamento	
+gpedit.msc	politica , seguranca , local	
+hdwwiz.cpl	dispositivos	
+intl.cpl	formato hora dia	
+ipconfig /displaydns	??? , importante, dns	
+ipconfig /registerdns	dns	
+ipconfig /release	rede , ip	
+ipconfig /renew	rede, ip	
+lusrmgr.msc	usuarios e grupos locais	
+netplwiz	gerenciar usuarios	
+net stop wuauserv	update	
+powercfg.cpl	energia	
+secpol.msc	seguranca local, importante 	
+start chrome	chrome	
+sysdm.cpl	remoto sistema	
+systeminfo	versao windows	
+taskmgr. exe	tarefas gerenciador	
+%userprofile%	usuario atual	
+whoami 	usuario atual	
+wuauclt.exe /updatenow	atualizar	
+printmanagement.msc	impressora gerenciamento	
+taskschd.msc	agendador tarefas	
+schtasks /create /sc daily /tn "desligar as 0200" /tr "shutdown /s /t 10" /st 02:00	desligar agendar tarefas	
+C:\Windows\explorer.exe /NOUACCHECK	iniciar explorer administrador	
+certlm.msc	certificados locais	
+wf.msc	firewall	
+		
+powercfg -h off	energia, suspensao	
+powercfg /hibernate off	energia, hibernar	
+net user suser 34039712 /add /EXPIRES:NEVER  	usuario, expirar	
+runas /user:prm powershell	powershell root 01	
+start-process powershell -verb runas	powershell root 02	
+		
+		
+powercfg -h off		
+powercfg /hibernate off		
+powercfg /change monitor-timeout-ac 20		
+powercfg /change disk-timeout-ac 0		
+powercfg /change standby-timeout-ac 0		
+		
+net user prm kB-7atu /add /expires:never		
+add-localGroupMember -Group "Administradores" -Member "cenar"		
+wuauclt.exe /updatenow		
+Add-Computer -WorkGroupName "RIOPRETO"		
+add-localGroupMember -Group "Administradores" -Member "suser"		
+		
+get-netadapter		
+Set-NetConnectionProfile -InterfaceIndex 16 -NetworkCategory Private		
+Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private		
+Enable-PSRemoting -Force		
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value 10.112.24.167		
+Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe  => winget install		
+		
+		
+		
+		
+set-item WSMan:\localhost\Client\TrustedHosts -Value *		
+$usuario = Get-Credential		
+enter-pSSession  -Credential $usuario -ComputerName 10.112.24.165		
+		
+		
+		
+net user prm		
+net accounts /maxpwage:unlimited		
+net user prm temp /expires:never		
+net user suser temp /expires:never		
+		
+Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private		
+		
+cleanmgr /d /verylowdisk C:		
+get-computerinfo|select csmodel, csname, osversion, csmanufacturer, CsProcessors		
+		
+shutdown /s /t 8000		
+rename-computer PRSPP		
+		
+net user usuario usuario /add /EXPIRES:NEVER  		
+shutdown /s /t 50000		
+		
+hdwwiz.cpl		
+ipconfig /all > c:\users\prm\temp.txt		
+notepad c:\users\prm\temp.txt		
+		
+schtasks /create /sc daily /tn "desligar as 2359" /tr "Stop-Computer -ComputerName localhost -force" /st 23:59		
+		
+winget list | select-string "ccleaner"		
+		
+Get-ChildItem -Path Cert:\LocalMachine\Trust\		
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine		
+		
+xcopy "Arquivos de Programas RFB" c:\Users\claudio\ /f /e		
+msiexec /i C:\Users\agent_cloud_x64.msi /quiet /norestart /lv C:\OfficeScan.log		
+		
+winget install winget --accept-package-agreements --accept-source-agreements -h		
+Winget-AutoUpdate-aaSwinget install Winget-AutoUpdate-aaS  --accept-package-agreements		
+winget install Microsoft.AppInstaller  --accept-package-agreements		
+		
+ & 'C:\Program Files\TightVNC\tvnserver.exe' -configservice		
+		
+winget install GlavSoft.TightVNC -h --accept-package-agreements --accept-source-agreements --disable-interactivity		
+winget install winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity		
+		
+rename-localUser -Name "prm" -NewName "wdgoi"		
+Set-LocalUser -Name "Admin07" -Description "Description " -FullName "full name"		
+		
+		
+Set-LocalUser -Name "ftavares" -Description "Fernando Tavares"  -PasswordNeverExpires $false		
+$temp = query user | select-string "ativo"		
+$temp2=$temp -Split “ ”		
+$temp2[1]		
+		
+(gcim Win32_OperatingSystem).LastBootUpTime		
+get-process | select name, company,path -unique | sort-object -property company		
+Get-WmiObject -Class Win32_IP4RouteTable | where { $.destination -eq '0.0.0.0' -and $.mask -eq '0.0.0.0'} | Sort-Object metric1 | select interfaceindex | set-DnsClientServerAddress -ServerAddresses ('8.8.8.8')
